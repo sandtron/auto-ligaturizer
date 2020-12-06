@@ -1,5 +1,5 @@
-require_relative('DbWorker')
-class DbTaskWriter < DbWorker
+require_relative('../sq;/DbWorker')
+class LigatureUploader < DbWorker
   def payload(payload)
     @payload = payload
     self

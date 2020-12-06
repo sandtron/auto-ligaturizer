@@ -1,9 +1,9 @@
 require('yaml')
-require_relative('sql/DbSetup')
+require_relative('ligaturizer/LigaturizeJobReader')
 
 def create_db_setup(yaml_file)
   db_cfg = YAML.load_file(yaml_file)['db']
-  DbSetup.new(
+  LigaturizeJobReader.new(
     db_cfg['host'],
     db_cfg['database'],
     db_cfg['user'],
@@ -12,4 +12,5 @@ def create_db_setup(yaml_file)
   )
 end
 
-create_db_setup(ARGV[0]).execute
+to_process = create_db_setup(ARGV[0]).execute
+puts to_process
