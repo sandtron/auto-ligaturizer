@@ -1,6 +1,6 @@
 require 'pg'
-require_relative('../sql/DbWorker')
-class ReleaseJob < DbWorker
+require_relative('./DbWorker')
+class LockReleaser < DbWorker
   def uid(uid)
     @uid = uid
     self

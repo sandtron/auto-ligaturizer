@@ -1,10 +1,10 @@
+require('fileutils')
 require('pry')
 require('yaml')
-require_relative('ligaturizer/LigaturizeJobReader')
-require_relative('ligaturizer/Ligaturizer')
-require_relative('ligaturizer/LigaturizerResultUploader')
-require_relative('ligaturizer/ReleaseJob')
-require 'fileutils'
+require_relative('./Ligaturizer')
+require_relative('./sql/JobReader')
+require_relative('./sql/LockReleaser')
+require_relative('./sql/ResultUploader')
 
 DB_CFG = YAML.load_file(ARGV[0])['db']
 MAIN_CFG = YAML.load_file(ARGV[0])['main']
@@ -18,7 +18,7 @@ def do_work(job_q)
   to_process.each do |uid, binary|
     begin
       ligaturized_font_binary = ligaturizer.ligaturize(binary)
-      LigaturizerResultUploader.new(
+      ResultUploader.new(
         DB_CFG['host'],
         DB_CFG['database'],
         DB_CFG['user'],
@@ -28,7 +28,7 @@ def do_work(job_q)
     rescue Exception => e
       puts e.message
 
-      ReleaseJob.new(
+      LockReleaser.new(
         DB_CFG['host'],
         DB_CFG['database'],
         DB_CFG['user'],
@@ -38,7 +38,7 @@ def do_work(job_q)
     end
   end
 end
-job_q = LigaturizeJobReader.new(
+job_q = JobReader.new(
   DB_CFG['host'],
   DB_CFG['database'],
   DB_CFG['user'],

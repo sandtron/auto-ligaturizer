@@ -1,17 +1,17 @@
 require('yaml')
-require_relative('ligaturizer/LigatureUploader')
+require_relative('./sql/JobUploader')
 require 'securerandom'
 
 def upload_file(yaml_file, payload)
   db_cfg = YAML.load_file(yaml_file)['db']
-  LigatureUploader.new(
+  JobUploader.new(
     db_cfg['host'],
     db_cfg['database'],
     db_cfg['user'],
     db_cfg['port'],
     db_cfg['password']
   ).payload(IO.binread(payload))
-                  .uid(SecureRandom.uuid)
+             .uid(SecureRandom.uuid)
 end
 
 config = ARGV[0]

@@ -1,6 +1,6 @@
 require 'pg'
-require_relative('../sql/DbWorker')
-class LigaturizeJobReader < DbWorker
+require_relative('./DbWorker')
+class JobReader < DbWorker
   def do_work(conn)
     result_hash = {}
 
