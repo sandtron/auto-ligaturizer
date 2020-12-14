@@ -11,7 +11,7 @@ class LigaturizerResultUploader < DbWorker
   end
 
   def do_work(conn)
-    conn.exec_params('UPDATE "PROCESS_QUEUE" SET (out_file=$1,processed_time=NOW()) WHERE uid = $2',
-                     [{ value: IO.binread(@payload), format: 1 }, @uid]) { |res| res.cmd_tuples == 1 }
+    conn.exec_params('UPDATE "PROCESS_QUEUE" SET out_file = $1, processed_time = NOW(), lock = false WHERE uid = $2',
+                     [{ value: @payload, format: 1 }, @uid]) { |res| res.cmd_tuples == 1 }
   end
 end

@@ -13,7 +13,18 @@ class DbWorker
   end
 
   def execute
+    puts "\tconnecting to db"
+
     conn = PG.connect(dbname: @database, user: @user, port: @port, host: @host, password: @password)
-    do_work(conn)
+    puts "\tprocessing"
+    result = do_work(conn)
+    puts "\tprocessed"
+    conn.flush
+    puts "\tclosing connection"
+    conn.finish
+    puts "\tclosed"
+    result
+  rescue Exception => e
+    puts e.message
   end
 end

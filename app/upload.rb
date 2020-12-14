@@ -10,11 +10,15 @@ def upload_file(yaml_file, payload)
     db_cfg['user'],
     db_cfg['port'],
     db_cfg['password']
-  ).payload(payload)
+  ).payload(IO.binread(payload))
                   .uid(SecureRandom.uuid)
 end
 
 config = ARGV[0]
-payload = ARGV[1]
+file_pattern = ARGV[1]
 
-upload_file(config, payload).execute
+Dir.glob(file_pattern).each do |payload|
+  puts "uploading #{payload}"
+  upload_file(config, payload).execute
+  puts "uploaded #{payload}"
+end

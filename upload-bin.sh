@@ -1,0 +1,1 @@
+bundle exec ruby app/upload.rb config/config.yml "./bin/*"
