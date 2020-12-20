@@ -7,23 +7,22 @@ class Ligaturizer
   end
 
   def ligaturize(binary)
-    tmp_dir = `echo $(pwd)/tmp`.strip
+    uid = SecureRandom.uuid.to_s
+    tmp_dir = `echo $(pwd)/tmp/#{uid}/`.strip
+
     FileUtils.mkdir_p(tmp_dir)
 
-    uid = "#{SecureRandom.uuid}.ttf"
-
-    temp_in_file_name = "#{tmp_dir}/#{uid}"
+    temp_in_file_name = "#{tmp_dir}/in-font.ttf"
 
     File.open(temp_in_file_name, 'wb') { |io| io.write(binary) }
 
     docker_result = `docker run --rm -v #{temp_in_file_name}:/input -v #{tmp_dir}:/output --user $(id -u) rfvgyhn/ligaturizer`
-
+    puts docker_result
     temp_out_file_name = "#{tmp_dir}/#{extract_result_file_name(docker_result)}"
 
-    resut_binary = IO.binread(temp_out_file_name)
+    IO.binread(temp_out_file_name)
 
     FileUtils.rm([temp_in_file_name, temp_out_file_name])
-
-    resut_binary
+    FileUtils.rmdir(tmp_dir)
   end
 end

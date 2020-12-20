@@ -1,23 +1,24 @@
 class DbWorker
   require 'pg'
-  def initialize(host, database, user, port, password)
-    @host = host
-    @database = database
-    @user = user
-    @port = port
-    @password = password
+  def initialize(cfg)
+    @host = cfg['host']
+    @database = cfg['database']
+    @user = cfg['user']
+    @port = cfg['port']
+    @password = cfg['password']
   end
 
   def do_work(_conn)
     raise 'Not implemented'
   end
 
-  def execute
+  def execute(params = {})
     puts "\tconnecting to db"
 
     conn = PG.connect(dbname: @database, user: @user, port: @port, host: @host, password: @password)
     puts "\tprocessing"
-    result = do_work(conn)
+
+    result = do_work(conn, params)
     puts "\tprocessed"
     conn.flush
     puts "\tclosing connection"

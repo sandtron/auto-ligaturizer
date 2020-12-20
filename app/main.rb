@@ -5,51 +5,31 @@ require_relative('./Ligaturizer')
 require_relative('./sql/JobReader')
 require_relative('./sql/LockReleaser')
 require_relative('./sql/ResultUploader')
+require_relative('./sql/JobCleaner')
 
 DB_CFG = YAML.load_file(ARGV[0])['db']
 MAIN_CFG = YAML.load_file(ARGV[0])['main']
 n_threads = MAIN_CFG['n_threads']
 
-def do_work(job_q)
-  to_process = job_q.execute
+JOB_CLEANER = JobCleaner.new(DB_CFG)
+JOB_Q = JobReader.new(DB_CFG)
+JOB_RESULT_UPLOADER = ResultUploader.new(DB_CFG)
+JOB_LOCK_RELEASER = LockReleaser.new(DB_CFG)
 
+def process_font(uid, binary)
   ligaturizer = Ligaturizer.new
-
-  to_process.each do |uid, binary|
-    begin
-      ligaturized_font_binary = ligaturizer.ligaturize(binary)
-      ResultUploader.new(
-        DB_CFG['host'],
-        DB_CFG['database'],
-        DB_CFG['user'],
-        DB_CFG['port'],
-        DB_CFG['password']
-      ).uid(uid).payload(ligaturized_font_binary).execute
-    rescue Exception => e
-      puts e.message
-
-      LockReleaser.new(
-        DB_CFG['host'],
-        DB_CFG['database'],
-        DB_CFG['user'],
-        DB_CFG['port'],
-        DB_CFG['password']
-      ).uid(uid).execute
-    end
-  end
+  ligaturized_font_binary = ligaturizer.ligaturize(binary)
+  JOB_RESULT_UPLOADER.execute({ 'uid' => uid, 'payload' => ligaturized_font_binary })
+rescue Exception => e
+  puts e.message
+  JOB_LOCK_RELEASER.execute({ 'uid' => uid })
 end
-job_q = JobReader.new(
-  DB_CFG['host'],
-  DB_CFG['database'],
-  DB_CFG['user'],
-  DB_CFG['port'],
-  DB_CFG['password']
-)
 
-while true
-  threads = []
-  (0..n_threads).each do |_i|
-    threads.push(Thread.new { do_work(job_q) })
-  end
-  threads.each { |t| t.join }
+loop do
+  [Thread.new { JOB_CLEANER.execute },
+   *(JOB_Q.execute({ 'limit' => n_threads })
+   .map do |uid, binary|
+       Thread.new { process_font(uid, binary) }
+     end)]
+    .each(&:join)
 end

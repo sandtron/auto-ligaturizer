@@ -4,13 +4,8 @@ require 'securerandom'
 
 def upload_file(yaml_file, payload)
   db_cfg = YAML.load_file(yaml_file)['db']
-  JobUploader.new(
-    db_cfg['host'],
-    db_cfg['database'],
-    db_cfg['user'],
-    db_cfg['port'],
-    db_cfg['password']
-  ).payload(IO.binread(payload))
+  JobUploader.new(db_cfg)
+             .payload(IO.binread(payload))
              .uid(SecureRandom.uuid)
 end
 
