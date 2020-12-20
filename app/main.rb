@@ -20,7 +20,7 @@ def process_font(uid, binary)
   ligaturizer = Ligaturizer.new
   ligaturized_font_binary = ligaturizer.ligaturize(binary)
   JOB_RESULT_UPLOADER.execute({ 'uid' => uid, 'payload' => ligaturized_font_binary })
-rescue Exception => e
+rescue StandardError => e
   puts e.message
   JOB_LOCK_RELEASER.execute({ 'uid' => uid })
 end

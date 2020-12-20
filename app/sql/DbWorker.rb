@@ -25,7 +25,7 @@ class DbWorker
     conn.finish
     puts "\tclosed"
     result
-  rescue Exception => e
+  rescue StandardError => e
     puts e.message
   end
 end
