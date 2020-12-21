@@ -17,7 +17,7 @@ class Ligaturizer
     File.open(temp_in_file_name, 'wb') { |io| io.write(binary) }
 
     docker_result = `docker run --rm -v #{temp_in_file_name}:/input -v #{tmp_dir}:/output --user $(id -u) rfvgyhn/ligaturizer`
-    puts docker_result
+    # puts docker_result
     temp_out_file_name = "#{tmp_dir}/#{extract_result_file_name(docker_result)}"
 
     IO.binread(temp_out_file_name)

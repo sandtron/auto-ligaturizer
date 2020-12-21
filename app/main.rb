@@ -25,11 +25,16 @@ rescue StandardError => e
   JOB_LOCK_RELEASER.execute({ 'uid' => uid })
 end
 
+puts 'watching for fonts to process...'
+
 loop do
   [Thread.new { JOB_CLEANER.execute },
    *(JOB_Q.execute({ 'limit' => n_threads })
    .map do |uid, binary|
-       Thread.new { process_font(uid, binary) }
+       Thread.new do
+         puts "processing: #{uid}"
+         process_font(uid, binary)
+       end
      end)]
     .each(&:join)
 end
