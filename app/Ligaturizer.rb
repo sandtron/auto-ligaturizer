@@ -20,9 +20,10 @@ class Ligaturizer
     # puts docker_result
     temp_out_file_name = "#{tmp_dir}/#{extract_result_file_name(docker_result)}"
 
-    IO.binread(temp_out_file_name)
+    result = IO.binread(temp_out_file_name)
 
     FileUtils.rm([temp_in_file_name, temp_out_file_name])
     FileUtils.rmdir(tmp_dir)
+    result
   end
 end
