@@ -1,0 +1,315 @@
+{
+    "source_ligature_filename": "FiraCode-Medium.otf",
+    "add_ligatures": [
+        {
+            "info": "<-",
+            "chars": [
+                "less",
+                "hyphen"
+            ],
+            "source_ligature_name": "less_hyphen.liga"
+        },
+        {
+            "info": "<--",
+            "chars": [
+                "less",
+                "hyphen",
+                "hyphen"
+            ],
+            "source_ligature_name": "less_hyphen_hyphen.liga"
+        },
+        {
+            "info": "->",
+            "chars": [
+                "hyphen",
+                "greater"
+            ],
+            "source_ligature_name": "hyphen_greater.liga"
+        },
+        {
+            "info": "-->",
+            "chars": [
+                "hyphen",
+                "hyphen",
+                "greater"
+            ],
+            "source_ligature_name": "hyphen_hyphen_greater.liga"
+        },
+        {
+            "info": "<>",
+            "chars": [
+                "less",
+                "greater"
+            ],
+            "source_ligature_name": "less_greater.liga"
+        },
+        {
+            "info": "<->",
+            "chars": [
+                "less",
+                "hyphen",
+                "greater"
+            ],
+            "source_ligature_name": "less_hyphen_greater.liga"
+        },
+        {
+            "info": "=>",
+            "chars": [
+                "equal",
+                "greater"
+            ],
+            "source_ligature_name": "equal_greater.liga"
+        },
+        {
+            "info": "==>",
+            "chars": [
+                "equal",
+                "equal",
+                "greater"
+            ],
+            "source_ligature_name": "equal_equal_greater.liga"
+        },
+        {
+            "info": "<==",
+            "chars": [
+                "less",
+                "equal",
+                "equal"
+            ],
+            "source_ligature_name": "less_equal_equal.liga"
+        },
+        {
+            "info": "?=",
+            "chars": [
+                "question",
+                "equal"
+            ],
+            "source_ligature_name": "question_equal.liga"
+        },
+        {
+            "info": "!=",
+            "chars": [
+                "exclam",
+                "equal"
+            ],
+            "source_ligature_name": "exclam_equal.liga"
+        },
+        {
+            "info": "==",
+            "chars": [
+                "equal",
+                "equal"
+            ],
+            "source_ligature_name": "equal_equal.liga"
+        },
+        {
+            "info": "<=",
+            "chars": [
+                "less",
+                "equal"
+            ],
+            "source_ligature_name": "equal_less.liga"
+        },
+        {
+            "info": ">=",
+            "chars": [
+                "greater",
+                "equal"
+            ],
+            "source_ligature_name": "greater_equal.liga"
+        },
+        {
+            "info": ": :",
+            "chars": [
+                "colon",
+                "colon"
+            ],
+            "source_ligature_name": "colon_colon.liga"
+        },
+        {
+            "info": "===",
+            "chars": [
+                "equal",
+                "equal",
+                "equal"
+            ],
+            "source_ligature_name": "equal_equal_equal.liga"
+        },
+        {
+            "info": "!==",
+            "chars": [
+                "exclam",
+                "equal",
+                "equal"
+            ],
+            "source_ligature_name": "exclam_equal_equal.liga"
+        },
+        {
+            "info": "??",
+            "chars": [
+                "question",
+                "question"
+            ],
+            "source_ligature_name": "question_question.liga"
+        },
+        {
+            "info": "!!",
+            "chars": [
+                "exclam",
+                "exclam"
+            ],
+            "source_ligature_name": "exclam_exclam.liga"
+        },
+        {
+            "info": "--",
+            "chars": [
+                "hyphen",
+                "hyphen"
+            ],
+            "source_ligature_name": "hyphen_hyphen.liga"
+        },
+        {
+            "info": "---",
+            "chars": [
+                "hyphen",
+                "hyphen",
+                "hyphen"
+            ],
+            "source_ligature_name": "hyphen_hyphen_hyphen.liga"
+        },
+        {
+            "info": "/*",
+            "chars": [
+                "slash",
+                "asterisk"
+            ],
+            "source_ligature_name": "slash_asterisk.liga"
+        },
+        {
+            "info": "/**",
+            "chars": [
+                "slash",
+                "asterisk",
+                "asterisk"
+            ],
+            "source_ligature_name": "slash_asterisk_asterisk.liga"
+        },
+        {
+            "info": "*/",
+            "chars": [
+                "asterisk",
+                "slash"
+            ],
+            "source_ligature_name": "asterisk_slash.liga"
+        },
+        {
+            "info": "//",
+            "chars": [
+                "slash",
+                "slash"
+            ],
+            "source_ligature_name": "slash_slash.liga"
+        },
+        {
+            "info": "///",
+            "chars": [
+                "slash",
+                "slash",
+                "slash"
+            ],
+            "source_ligature_name": "slash_slash_slash.liga"
+        },
+        {
+            "info": "||",
+            "chars": [
+                "bar",
+                "bar"
+            ],
+            "source_ligature_name": "bar_bar.liga"
+        },
+        {
+            "info": "||=",
+            "chars": [
+                "bar",
+                "bar",
+                "equal"
+            ],
+            "source_ligature_name": "bar_bar_equal.liga"
+        },
+        {
+            "info": "|=",
+            "chars": [
+                "bar",
+                "equal"
+            ],
+            "source_ligature_name": "bar_equal.liga"
+        },
+        {
+            "info": "^=",
+            "chars": [
+                "asciicircum",
+                "equal"
+            ],
+            "source_ligature_name": "asciicircum_equal.liga"
+        },
+        {
+            "info": "~=",
+            "chars": [
+                "asciitilde",
+                "equal"
+            ],
+            "source_ligature_name": "asciitilde_equal.liga"
+        },
+        {
+            "info": "=~",
+            "chars": [
+                "equal",
+                "asciitilde"
+            ],
+            "source_ligature_name": "equal_asciitilde.liga"
+        },
+        {
+            "info": "~>",
+            "chars": [
+                "asciitilde",
+                "greater"
+            ],
+            "source_ligature_name": "asciitilde_greater.liga"
+        },
+        {
+            "info": "~~>",
+            "chars": [
+                "asciitilde",
+                "asciitilde",
+                "greater"
+            ],
+            "source_ligature_name": "asciitilde_asciitilde_greater.liga"
+        },
+        {
+            "info": "<<",
+            "chars": [
+                "less",
+                "less"
+            ],
+            "source_ligature_name": "less_less.liga"
+        },
+        {
+            "info": ">>",
+            "chars": [
+                "greater",
+                "greater"
+            ],
+            "source_ligature_name": "greater_greater.liga"
+        },
+        {
+            "info": "<!--",
+            "chars": [
+                "less",
+                "exclam",
+                "hyphen",
+                "hyphen"
+            ],
+            "source_ligature_name": "less_exclam_hyphen_hyphen.liga"
+        }
+    ]
+}
