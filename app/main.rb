@@ -17,7 +17,7 @@ JOB_RESULT_UPLOADER = ResultUploader.new(DB_CFG)
 JOB_LOCK_RELEASER = LockReleaser.new(DB_CFG)
 
 def process_font(uid, binary)
-  ligaturizer = Ligaturizer.new
+  ligaturizer = Ligaturizer.new(MAIN_CFG['ligaturizer_script_path'])
   ligaturized_font_binary = ligaturizer.ligaturize(binary)
   JOB_RESULT_UPLOADER.execute({ 'uid' => uid, 'payload' => ligaturized_font_binary })
 rescue StandardError => e

@@ -6,3 +6,4 @@ db:
   password:
 main:
   n_threads:
+  ligaturizer_script_path: local path to https://github.com/sandtron/auto-ligaturizer/ligaturize.py

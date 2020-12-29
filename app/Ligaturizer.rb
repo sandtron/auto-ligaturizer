@@ -2,8 +2,8 @@ require 'securerandom'
 require 'fileutils'
 
 class Ligaturizer
-  def extract_result_file_name(docker_result)
-    docker_result.scan(%r{/.*\.ttf})[0].split('/').last
+  def initialize(ligaturizer_script_path)
+    @ligaturizer_script_path = ligaturizer_script_path
   end
 
   def ligaturize(binary)
@@ -13,14 +13,12 @@ class Ligaturizer
     FileUtils.mkdir_p(tmp_dir)
 
     temp_in_file_name = "#{tmp_dir}/in-font.ttf"
+    temp_out_file_name = "#{tmp_dir}/out-font.ttf"
 
     File.open(temp_in_file_name, 'wb') { |io| io.write(binary) }
 
-    docker_cmd = `echo docker run --rm -v #{temp_in_file_name}:/input -v #{tmp_dir}:/output --user $(id -u) rfvgyhn/ligaturizer`
-    puts docker_cmd.to_s
-    docker_result = `#{docker_cmd}`
-    puts docker_result
-    temp_out_file_name = "#{tmp_dir}/#{extract_result_file_name(docker_result)}"
+    # Execute ligaturizer script
+    `python3 #{@ligaturizer_script_path} #{temp_in_file_name} #{temp_out_file_name}`
 
     result = IO.binread(temp_out_file_name)
 
