@@ -3,7 +3,7 @@ import sys
 import fontforge
 import json
 
-ligature_source_dir = "./ligature-sources/firacode"
+ligature_source_dir = os.path.join(sys.path[0], "ligature-sources/firacode")
 in_file = sys.argv[1]
 
 try:
