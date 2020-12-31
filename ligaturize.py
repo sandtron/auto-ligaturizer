@@ -4,6 +4,7 @@ import fontforge
 import json
 
 
+# Python 2 JSON unicode json support
 def _decode_list(data):
     rv = []
     for item in data:
@@ -30,6 +31,7 @@ def _decode_dict(data):
             value = _decode_dict(value)
         rv[key] = value
     return rv
+# End Python 2 unicode json support
 
 
 ligature_source_dir = os.path.join(sys.path[0], "ligature-sources/firacode")
@@ -50,7 +52,12 @@ config = {
     }}
 
 with open(os.path.join(ligature_source_dir, 'mapping.json'), 'r') as cfg:
-    jsonCfg = json.load(cfg, object_hook=_decode_dict)
+
+    if sys.version_info[0] == 2:
+        jsonCfg = json.load(cfg, object_hook=_decode_dict)
+    else:
+        jsonCfg = json.load(cfg)
+
     config["add_ligatures"] = jsonCfg["add_ligatures"]
     config["ligature_source_ttf"] = os.path.join(
         ligature_source_dir, jsonCfg["source_ligature_filename"])
