@@ -48,7 +48,7 @@ config = {
     'source_ttf': in_file,
     'output': {
         'filename': out_file,
-        'copyright_add': "\nProgramming ligatures added by Ilya Skriblovsky from FiraCode\nFiraCode Copyright (c) 2015 by Nikita Prokopov"
+        'copyright_add': "\nProgramming ligatures added from FiraCode\nFiraCode Copyright (c) 2015 by Nikita Prokopov"
     }}
 
 with open(os.path.join(ligature_source_dir, 'mapping.json'), 'r') as cfg:
