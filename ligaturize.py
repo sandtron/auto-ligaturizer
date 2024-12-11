@@ -37,7 +37,7 @@ def _decode_dict(data):
 ligature_source_dir = os.path.join(sys.path[0], "ligature-sources/firacode")
 
 in_file = sys.argv[1]
-
+print("infile="+ in_file)
 try:
     out_file = sys.argv[2]
 except IndexError:
@@ -127,7 +127,7 @@ def change_font_names(font,  copyright_add):
     font.fontname += " Liga"
     font.fullname += "Liga"
     font.familyname += " Liga"
-    font.copyright += copyright_add
+    font.copyright = font.copyright or "" + copyright_add
     font.sfnt_names = tuple(
         (row[0], 'UniqueID', 'Liga') if row[1] == 'UniqueID' else row
         for row in font.sfnt_names
@@ -141,7 +141,6 @@ ligature_source_font.em = font.em
 creator = LigatureCreator(font, ligature_source_font)
 def ligature_length(lig): return len(lig['chars'])
 
-
 for lig_spec in sorted(config['add_ligatures'], key=ligature_length):
     try:
         creator.add_ligature(
@@ -150,6 +149,6 @@ for lig_spec in sorted(config['add_ligatures'], key=ligature_length):
         print('Exception while adding ligature: {}'.format(lig_spec))
         raise
 
-change_font_names(font, config['output']['copyright_add'])
+change_font_names(font,config['output']['copyright_add'])
 
 font.generate(config['output']['filename'])
